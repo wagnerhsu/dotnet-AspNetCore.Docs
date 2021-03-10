@@ -11,8 +11,6 @@ uid: blazor/webassembly-performance-best-practices
 ---
 # ASP.NET Core Blazor WebAssembly performance best practices
 
-By [Pranav Krishnamoorthy](https://github.com/pranavkm) and [Steve Sanderson](https://github.com/SteveSandersonMS)
-
 Blazor WebAssembly is carefully designed and optimized to enable high performance in most realistic application UI scenarios. However, producing the best results depends on developers using the right patterns and features. Consider the following aspects:
 
 * **Runtime throughput**: The .NET code runs on an interpreter within the WebAssembly runtime, so CPU throughput is limited. In demanding scenarios, the app benefits from [optimizing rendering speed](#optimize-rendering-speed).
@@ -74,7 +72,7 @@ If the component only requires rerendering when its parameter values mutate in p
         prevInboundFlightId = InboundFlight.FlightId;
     }
 
-    protected override void ShouldRender() => shouldRender;
+    protected override bool ShouldRender() => shouldRender;
 
     // Note that 
 }
@@ -174,7 +172,7 @@ You may be factoring out child components purely as a way of reusing rendering l
 @RenderWelcomeInfo
 
 @code {
-    RenderFragment RenderWelcomeInfo = __builder =>
+    private RenderFragment RenderWelcomeInfo = __builder =>
     {
         <div>
             <p>Welcome to your new app!</p>
@@ -204,12 +202,12 @@ This could now be invoked from an unrelated component. This technique is useful 
 <div class="chat">
     @foreach (var message in messages)
     {
-        @DisplayChatMessage(message)
+        @ChatMessageDisplay(message)
     }
 </div>
 
 @code {
-    RenderFragment<ChatMessage> DisplayChatMessage = message => __builder =>
+    private RenderFragment<ChatMessage> ChatMessageDisplay = message => __builder =>
     {
         <div class="chat-message">
             <span class="author">@message.Author</span>
@@ -220,6 +218,17 @@ This could now be invoked from an unrelated component. This technique is useful 
 ```
 
 This approach provides the benefit of reusing rendering logic without per-component overhead. However, it doesn't have the benefit of being able to refresh its subtree of the UI independently, nor does it have the ability to skip rendering that subtree of the UI when its parent renders, since there's no component boundary.
+
+For a non-static field, method, or property that can't be referenced by a field initializer, such as `TitleTemplate` in the following example, use a property instead of a field for the <xref:Microsoft.AspNetCore.Components.RenderFragment>:
+
+```csharp
+protected RenderFragment DisplayTitle => __builder =>
+{
+    <div>
+        @TitleTemplate
+    </div>   
+};
+```
 
 #### Don't receive too many parameters
 
@@ -517,7 +526,7 @@ function jsInteropCall() {
 
 ### Intermediate Language (IL) trimming
 
-[Trimming unused assemblies from a Blazor WebAssembly app](xref:blazor/host-and-deploy/configure-trimmer) reduces the app's size by removing unused code in the app's binaries. By default, the Trimmer is executed when publishing an application. To benefit from trimming, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:
+Trimming unused assemblies from a Blazor WebAssembly app reduces the app's size by removing unused code in the app's binaries. For more information, see <xref:blazor/host-and-deploy/configure-trimmer>.
 
 ::: moniker-end
 
@@ -527,11 +536,11 @@ function jsInteropCall() {
 
 [Linking a Blazor WebAssembly app](xref:blazor/host-and-deploy/configure-linker) reduces the app's size by trimming unused code in the app's binaries. By default, the Intermediate Language (IL) Linker is only enabled when building in `Release` configuration. To benefit from this, publish the app for deployment using the [`dotnet publish`](/dotnet/core/tools/dotnet-publish) command with the [-c|--configuration](/dotnet/core/tools/dotnet-publish#options) option set to `Release`:
 
-::: moniker-end
-
 ```dotnetcli
 dotnet publish -c Release
 ```
+
+::: moniker-end
 
 ### Use System.Text.Json
 

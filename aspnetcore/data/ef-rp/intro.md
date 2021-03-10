@@ -111,7 +111,7 @@ To run the app after downloading the completed project:
     1. **.NET Core** and **ASP.NET Core 5.0** in the dropdowns.
     1. **ASP.NET Core Web App**.
     1. **Create**
-      ![New ASP.NET Core Project dialog](~/data/ef-mvc/intro/_static/new-aspnet5.png)
+      ![New ASP.NET Core Project dialog](~/data/ef-rp/intro/_static/new-aspnet5.png)
     
 # [Visual Studio Code](#tab/visual-studio-code)
 
@@ -370,7 +370,7 @@ Add the [Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore](https://www.nuget
 In the PMC, enter the following to add the NuGet package:
 
 ```powershell
-Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore -Version 5.0.0-rc.2.20475.17
+Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
 ```
 
 # [Visual Studio Code](#tab/visual-studio-code)

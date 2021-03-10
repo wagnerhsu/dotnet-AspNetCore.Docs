@@ -45,7 +45,7 @@ HTTP.sys is useful for deployments where:
 
   ![HTTP.sys communicates directly with the Internet](httpsys/_static/httpsys-to-internet.png)
 
-* An internal deployment requires a feature not available in Kestrel, such as [Windows Authentication](xref:security/authentication/windowsauth).
+* An internal deployment requires a feature not available in Kestrel. For more information, see [Kestrel vs. HTTP.sys](xref:fundamentals/servers/index#kestrel-vs-httpsys)
 
   ![HTTP.sys communicates directly with the internal network](httpsys/_static/httpsys-to-internal.png)
 
@@ -261,7 +261,7 @@ For apps hosted by HTTP.sys that interact with requests from the Internet or a c
 
 Additional HTTP/2 features in HTTP.sys support gRPC, including support for response trailers and sending reset frames.
 
-Requirements to run gRPC with HTTP.SYS:
+Requirements to run gRPC with HTTP.sys:
 
 * Windows 10, OS Build 19041.508 or later
 * TLS 1.2 or later connection

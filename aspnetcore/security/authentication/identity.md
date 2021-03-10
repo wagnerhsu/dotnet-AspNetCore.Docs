@@ -22,7 +22,7 @@ Users can create an account with the login information stored in Identity or the
 
 [!INCLUDE[](~/includes/requireAuth.md)]
 
-The [Identity source code](https://github.com/dotnet/AspNetCore/tree/master/src/Identity) is available on GitHub. [Scaffold Identity](xref:security/authentication/scaffold-identity) and view the generated files to review the template interaction with Identity.
+The [Identity source code](https://github.com/dotnet/AspNetCore/tree/main/src/Identity) is available on GitHub. [Scaffold Identity](xref:security/authentication/scaffold-identity) and view the generated files to review the template interaction with Identity.
 
 Identity is typically configured using a SQL Server database to store user names, passwords, and profile data. Alternatively, another persistent store can be used, for example, Azure Table Storage.
 
@@ -369,6 +369,15 @@ Add the Register, Login, and LogOut files.
 # [.NET Core CLI](#tab/netcore-cli)
 
 If you created the project with name **WebApp1**, run the following commands. Otherwise, use the correct namespace for the `ApplicationDbContext`:
+
+When using SQLite, `--useSqLite` must be specified:
+
+```dotnetcli
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet aspnet-codegenerator identity -dc WebApp1.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout" --useSqLite
+```
+
+With SQL Express, use the following commands:
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
