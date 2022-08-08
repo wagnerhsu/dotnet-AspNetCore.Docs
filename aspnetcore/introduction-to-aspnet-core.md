@@ -1,20 +1,21 @@
 ---
-title: Introduction to ASP.NET Core
+title: Overview of ASP.NET Core
 author: rick-anderson
-description: Get an introduction to ASP.NET Core, a cross-platform, high-performance, open-source framework for building modern, cloud-enabled, Internet-connected apps.
+description: Get an overview of ASP.NET Core, a cross-platform, high-performance, open-source framework for building modern, cloud-enabled, Internet-connected apps.
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/17/2020
-no-loc: [appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+ms.date: 03/02/2022
 uid: index
 ---
-# Introduction to ASP.NET Core
+# Overview to ASP.NET Core
 
-By [Daniel Roth](https://github.com/danroth27), [Rick Anderson](https://twitter.com/RickAndMSFT), and [Shaun Luttin](https://twitter.com/dicshaunary)
+By [Daniel Roth](https://github.com/danroth27), [Rick Anderson](https://twitter.com/RickAndMSFT), and [Shaun Luttin](https://mvp.microsoft.com/en-us/PublicProfile/5001182)
 
-::: moniker range=">= aspnetcore-3.0"
+:::moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core is a cross-platform, high-performance, [open-source](https://github.com/dotnet/aspnetcore) framework for building modern, cloud-enabled, Internet-connected apps. With ASP.NET Core, you can:
+ASP.NET Core is a cross-platform, high-performance, [open-source](https://github.com/dotnet/aspnetcore) framework for building modern, cloud-enabled, Internet-connected apps.
+
+With ASP.NET Core, you can:
 
 * Build web apps and services, [Internet of Things (IoT)](https://www.microsoft.com/internet-of-things/) apps, and mobile backends.
 * Use your favorite development tools on Windows, macOS, and Linux.
@@ -89,9 +90,9 @@ We recommend the following sequence of tutorials for an introduction to developi
 
 For a reference guide to migrating ASP.NET 4.x apps to ASP.NET Core, see <xref:migration/proper-to-2x/index>.
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-3.0"
+:::moniker range="< aspnetcore-3.0"
 
 ASP.NET Core is a cross-platform, high-performance, [open-source](https://github.com/dotnet/aspnetcore) framework for building modern, cloud-enabled, Internet-connected apps. With ASP.NET Core, you can:
 
@@ -175,15 +176,15 @@ We recommend the following sequence of tutorials and articles for an introductio
 
 For a reference guide to migrating ASP.NET apps to ASP.NET Core, see <xref:migration/proper-to-2x/index>.
 
-::: moniker-end
+:::moniker-end
 
 ## How to download a sample
 
 Many of the articles and tutorials include links to sample code.
 
 1. [Download the ASP.NET repository zip file](https://codeload.github.com/dotnet/AspNetCore.Docs/zip/main).
-1. Unzip the *Docs-main.zip* file.
-1. Use the URL in the sample link to help you navigate to the sample directory.
+1. Unzip the `AspNetCore.Docs-main.zip` file.
+1. To access an article's sample app in the unzipped repository, use the URL in the article's sample link to help you navigate to the sample's folder. Usually, an article's sample link appears at the top of the article with the link text *View or download sample code*. 
 
 ### Preprocessor directives in sample code
 
@@ -228,6 +229,10 @@ The preceding C# code snippet is referenced in the topic's markdown file with th
 You may safely ignore (or remove) the `#region` and `#endregion` directives that surround the code. Don't alter the code within these directives if you plan to run the sample scenarios described in the topic. Feel free to alter the code when experimenting with other scenarios.
 
 For more information, see [Contribute to the ASP.NET documentation: Code snippets](https://github.com/dotnet/AspNetCore.Docs/blob/main/CONTRIBUTING.md#code-snippets).
+
+## Breaking changes and security advisories
+
+[!INCLUDE[](~/includes/announcements.md)]
 
 ## Next steps
 

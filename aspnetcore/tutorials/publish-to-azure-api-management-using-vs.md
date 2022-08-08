@@ -43,7 +43,7 @@ Adding Swagger definitions to the ASP.NET Core web API allows Azure API Manageme
 
 Next, you'll change the URL structure needed to access the `Get` action of the `WeatherForecastController`. Complete the following steps:
 
-1. Open the *WeatherForecastController.cs* file.
+1. Open the `WeatherForecastController.cs` file.
 1. Delete the `[Route("[controller]")]` class-level attribute. The class definition will look like the following:
 
     ```csharp
@@ -217,10 +217,6 @@ When you've finished testing the app, go to the [Azure portal](https://portal.az
     ![Azure Portal: Resource Groups page](publish-to-azure-api-management-using-vs/_static/rgd.png)
 
 1. Enter the name of the resource group and select **Delete**. Your app and all other resources created in this tutorial are now deleted from Azure.
-
-## Next steps
-
-<xref:host-and-deploy/azure-apps/azure-continuous-deployment>
 
 ## Additional resources
 

@@ -1,11 +1,10 @@
 ---
 title: gRPC services with ASP.NET Core
-author: juntaoluo
+author: jamesnk
 description: Learn the basic concepts when writing gRPC services with ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
-ms.author: johluo
+ms.author: jamesnk
 ms.date: 01/29/2021
-no-loc: [appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: grpc/aspnetcore
 ---
 # gRPC services with ASP.NET Core
@@ -50,7 +49,7 @@ gRPC requires the [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCo
 
 ### Configure gRPC
 
-In *Startup.cs*:
+In `Startup.cs`:
 
 * gRPC is enabled with the `AddGrpc` method.
 * Each gRPC service is added to the routing pipeline through the `MapGrpcService` method.
@@ -71,13 +70,14 @@ gRPC services can be hosted by all built-in ASP.NET Core servers.
 > * IIS&dagger;
 > * HTTP.sys&Dagger;
 
-&dagger;IIS requires .NET 5 and Windows 10 Build 20241 or later.
-
+&dagger;IIS requires .NET 5 and Windows 10 Build 20300.1000 or later.  
 &Dagger;HTTP.sys requires .NET 5 and Windows 10 Build 19529 or later.
+
+The preceding Windows 10 Build versions may require the use of a [Windows Insider](https://insider.windows.com) build.
 
 For more information about choosing the right server for an ASP.NET Core app, see <xref:fundamentals/servers/index>.
 
-::: moniker range=">= aspnetcore-5.0"
+:::moniker range=">= aspnetcore-5.0"
 
 ## Kestrel
 
@@ -98,13 +98,15 @@ Kestrel [supports HTTP/2](xref:fundamentals/servers/kestrel/http2) on most moder
 
 Kestrel endpoints used for gRPC should be secured with TLS. In development, an endpoint secured with TLS is automatically created at `https://localhost:5001` when the ASP.NET Core development certificate is present. No configuration is required. An `https` prefix verifies the Kestrel endpoint is using TLS.
 
-In production, TLS must be explicitly configured. In the following *appsettings.json* example, an HTTP/2 endpoint secured with TLS is provided:
+In production, TLS must be explicitly configured. In the following `appsettings.json` example, an HTTP/2 endpoint secured with TLS is provided:
 
 [!code-json[](~/grpc/aspnetcore/sample/appsettings.json?highlight=4)]
 
-Alternatively, Kestrel endpoints can be configured in *Program.cs*:
+Alternatively, Kestrel endpoints can be configured in `Program.cs`:
 
 [!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
+
+For more information on enabling TLS with Kestrel, see [Kestrel HTTPS endpoint configuration](xref:fundamentals/servers/kestrel/endpoints#listenoptionsusehttps).
 
 ### Protocol negotiation
 
@@ -119,19 +121,19 @@ For more information on enabling HTTP/2 and TLS with Kestrel, see [Kestrel endpo
 
 ## IIS
 
-[Internet Information Services (IIS)](xref:host-and-deploy/iis/index) is a flexible, secure and manageable Web Server for hosting web apps, including ASP.NET Core. .NET 5 and Windows 10 Build 20241 or later are required to host gRPC services with IIS.
+[Internet Information Services (IIS)](xref:host-and-deploy/iis/index) is a flexible, secure and manageable Web Server for hosting web apps, including ASP.NET Core. .NET 5 and Windows 10 Build 20300.1000 or later are required to host gRPC services with IIS, which may require the use of a [Windows Insider](https://insider.windows.com) build.
 
 IIS must be configured to use TLS and HTTP/2. For more information, see <xref:host-and-deploy/iis/protocols>.
 
 ## HTTP.sys
 
-[HTTP.sys](xref:fundamentals/servers/httpsys) is a web server for ASP.NET Core that only runs on Windows. .NET 5 and Windows 10 Build 19529 or later are required to host gRPC services with HTTP.sys.
+[HTTP.sys](xref:fundamentals/servers/httpsys) is a web server for ASP.NET Core that only runs on Windows. .NET 5 and Windows 10 Build 19529 or later are required to host gRPC services with HTTP.sys, which may require the use of a [Windows Insider](https://insider.windows.com) build.
 
 HTTP.sys must be configured to use TLS and HTTP/2. For more information, see  [HTTP.sys web server HTTP/2 support](xref:fundamentals/servers/httpsys#http2-support).
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-5.0"
+:::moniker range="< aspnetcore-5.0"
 
 ## Kestrel
 
@@ -152,13 +154,15 @@ Kestrel [supports HTTP/2](xref:fundamentals/servers/kestrel#http2-support) on mo
 
 Kestrel endpoints used for gRPC should be secured with TLS. In development, an endpoint secured with TLS is automatically created at `https://localhost:5001` when the ASP.NET Core development certificate is present. No configuration is required. An `https` prefix verifies the Kestrel endpoint is using TLS.
 
-In production, TLS must be explicitly configured. In the following *appsettings.json* example, an HTTP/2 endpoint secured with TLS is provided:
+In production, TLS must be explicitly configured. In the following `appsettings.json` example, an HTTP/2 endpoint secured with TLS is provided:
 
 [!code-json[](~/grpc/aspnetcore/sample/appsettings.json?highlight=4)]
 
-Alternatively, Kestrel endpoints can be configured in *Program.cs*:
+Alternatively, Kestrel endpoints can be configured in `Program.cs`:
 
 [!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
+
+For more information on enabling TLS with Kestrel, see [Kestrel HTTPS endpoint configuration](xref:fundamentals/servers/kestrel#listenoptionsusehttps).
 
 ### Protocol negotiation
 
@@ -171,7 +175,7 @@ For more information on enabling HTTP/2 and TLS with Kestrel, see [Kestrel endpo
 > [!NOTE]
 > macOS doesn't support ASP.NET Core gRPC with TLS. Additional configuration is required to successfully run gRPC services on macOS. For more information, see [Unable to start ASP.NET Core gRPC app on macOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).
 
-::: moniker-end
+:::moniker-end
 
 ## Integration with ASP.NET Core APIs
 

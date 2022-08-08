@@ -5,7 +5,6 @@ description: Learn how to use gRPC for inter-process communication.
 monikerRange: '>= aspnetcore-5.0'
 ms.author: jamesnk
 ms.date: 09/16/2020
-no-loc: [appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: grpc/interprocess
 ---
 # Inter-process communication with gRPC
@@ -16,7 +15,7 @@ gRPC calls between a client and service are usually sent over TCP sockets. TCP w
 
 ## Server configuration
 
-Custom transports are supported by [Kestrel](xref:fundamentals/servers/kestrel). Kestrel is configured in *Program.cs*:
+Custom transports are supported by [Kestrel](xref:fundamentals/servers/kestrel). Kestrel is configured in `Program.cs`:
 
 ```csharp
 public static readonly string SocketPath = Path.Combine(Path.GetTempPath(), "socket.tmp");
@@ -32,7 +31,10 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
                 {
                     File.Delete(SocketPath);
                 }
-                options.ListenUnixSocket(SocketPath);
+                options.ListenUnixSocket(SocketPath, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                });
             });
         });
 ```
@@ -41,6 +43,7 @@ The preceding example:
 
 * Configures Kestrel's endpoints in `ConfigureKestrel`.
 * Calls <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> to listen to a [Unix domain socket (UDS)](https://wikipedia.org/wiki/Unix_domain_socket) with the specified path.
+* Creates a UDS endpoint that isn't configured to use HTTPS. For information about enabling HTTPS, see [Kestrel HTTPS endpoint configuration](xref:fundamentals/servers/kestrel/endpoints#listenoptionsusehttps).
 
 Kestrel has built-in support for UDS endpoints. UDS are supported on Linux, macOS and [modern versions of Windows](https://devblogs.microsoft.com/commandline/af_unix-comes-to-windows/).
 
