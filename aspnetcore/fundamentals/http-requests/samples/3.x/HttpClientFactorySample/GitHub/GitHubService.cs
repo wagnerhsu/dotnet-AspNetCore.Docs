@@ -9,7 +9,7 @@ namespace HttpClientFactorySample.GitHub
     /// <summary>
     /// Exposes methods to return GitHub API data
     /// </summary>
-    #region snippet1
+    // <snippet1>
     public class GitHubService
     {
         public HttpClient Client { get; }
@@ -30,7 +30,7 @@ namespace HttpClientFactorySample.GitHub
         public async Task<IEnumerable<GitHubIssue>> GetAspNetDocsIssues()
         {
             var response = await Client.GetAsync(
-                "/repos/aspnet/AspNetCore.Docs/issues?state=open&sort=created&direction=desc");
+                "/repos/dotnet/AspNetCore.Docs/issues?state=open&sort=created&direction=desc");
 
             response.EnsureSuccessStatusCode();
 
@@ -39,5 +39,5 @@ namespace HttpClientFactorySample.GitHub
                 <IEnumerable<GitHubIssue>>(responseStream);
         }
     }
-    #endregion
+    // </snippet1>
 }

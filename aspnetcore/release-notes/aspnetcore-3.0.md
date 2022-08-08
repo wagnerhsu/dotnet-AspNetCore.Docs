@@ -5,7 +5,6 @@ description: Learn about the new features in ASP.NET Core 3.0.
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
-no-loc: [appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: aspnetcore-3.0
 ---
 # What's new in ASP.NET Core 3.0
@@ -27,7 +26,7 @@ Blazor framework supported scenarios:
 * Component layouts
 * Support for dependency injection
 * Forms and validation
-* Build component libraries with Razor class libraries
+* Supply Razor components in Razor class libraries
 * JavaScript interop
 
 For more information, see <xref:blazor/index>.
@@ -202,7 +201,7 @@ public class ChatHub : Hub
 
 Creating the `DomainRestricted` policy might involve:
 
-* In *Startup.cs*, adding the new policy.
+* In `Startup.cs`, adding the new policy.
 * Provide the custom `DomainRestrictedRequirement` requirement as a parameter.
 * Registering `DomainRestricted` with the authorization middleware.
 
@@ -390,7 +389,7 @@ For more information, see <xref:security/authentication/windowsauth>.
 The web UI templates (Razor Pages, MVC with controller and views) have the following removed:
 
 * The cookie consent UI is no longer included. To enable the cookie consent feature in an ASP.NET Core 3.0 template-generated app, see <xref:security/gdpr>.
-* Scripts and related static assets are now referenced as local files instead of using CDNs. For more information, see [Scripts and related static assets are now referenced as local files instead of using CDNs based on the current environment (aspnet/AspNetCore.Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).
+* Scripts and related static assets are now referenced as local files instead of using CDNs. For more information, see [Scripts and related static assets are now referenced as local files instead of using CDNs based on the current environment (dotnet/AspNetCore.Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).
 
 The Angular template updated to use Angular 8.
 

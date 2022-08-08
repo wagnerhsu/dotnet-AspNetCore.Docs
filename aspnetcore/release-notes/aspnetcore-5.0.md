@@ -5,7 +5,6 @@ description: Learn about the new features in ASP.NET Core 5.0.
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/29/2020
-no-loc: ["ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR, Kestrel]
 uid: aspnetcore-5.0
 ---
 # What's new in ASP.NET Core 5.0
@@ -78,7 +77,7 @@ In ASP.NET Core 5.0, the web API templates enable the OpenAPI support by default
 	```
 * From Visual Studio: Uncheck **Enable OpenAPI support**.
 
-All *.csproj* files created for web API projects contain the [Swashbuckle.AspNetCore](https://www.nuget.org/packages/Swashbuckle.AspNetCore/) NuGet package reference.
+All `.csproj` files created for web API projects contain the [Swashbuckle.AspNetCore](https://www.nuget.org/packages/Swashbuckle.AspNetCore/) NuGet package reference.
 
 ```xml
 <ItemGroup>
@@ -135,23 +134,23 @@ Improve the perceived performance of component rendering using the Blazor framew
 
 ### `ontoggle` event support
 
-Blazor events now support the `ontoggle` DOM event. For more information, see <xref:blazor/components/event-handling#event-argument-types>.
+Blazor events now support the `ontoggle` DOM event. For more information, see <xref:blazor/components/event-handling#event-arguments>.
 
 ### Set UI focus in Blazor apps
 
 Use the `FocusAsync` convenience method on element references to set the UI focus to that element. For more information, see <xref:blazor/components/event-handling#focus-an-element>.
 
-### Custom validation class attributes
+### Custom validation CSS class attributes
 
-Custom validation class names are useful when integrating with CSS frameworks, such as Bootstrap. For more information, see <xref:blazor/forms-validation#custom-validation-class-attributes>.
+Custom validation CSS class attributes are useful when integrating with CSS frameworks, such as Bootstrap. For more information, see <xref:blazor/forms-validation#custom-validation-css-class-attributes>.
 
 ### IAsyncDisposable support
 
-Blazor components now support the <xref:System.IAsyncDisposable> interface for the asynchronous release of allocated resources.
+Razor components now support the <xref:System.IAsyncDisposable> interface for the asynchronous release of allocated resources.
 
 ### JavaScript isolation and object references
 
-Blazor enables JavaScript isolation in standard [JavaScript modules](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules). For more information, see <xref:blazor/call-javascript-from-dotnet#blazor-javascript-isolation-and-object-references>.
+Blazor enables JavaScript isolation in standard [JavaScript modules](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules). For more information, see <xref:blazor/js-interop/call-javascript-from-dotnet#javascript-isolation-in-javascript-modules>.
 
 ### Form components support display name
 
@@ -385,8 +384,6 @@ endpoints.MapGet("/weather/{city:alpha}", async context =>
     await context.Response.WriteAsJsonAsync(weather);
 });
 ```
-
-For more information on the new JSON extension methods and route to code, see [this .NET show](https://channel9.msdn.com/Shows/On-NET/ASPNET-Core-Series-Route-to-Code).
 
 ### System.Diagnostics.Activity
 
