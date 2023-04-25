@@ -4,7 +4,7 @@ author: jamesnk
 description: Learn about the supported platforms for gRPC on .NET.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 3/11/2021
+ms.date: 10/27/2022
 uid: grpc/supported-platforms
 ---
 # gRPC on .NET supported platforms
@@ -36,6 +36,18 @@ Hosting gRPC services with ASP.NET Core requires .NET Core 3.x or later.
 
 ASP.NET Core gRPC services can be hosted on all operating system that .NET Core supports.
 
+:::moniker range=">= aspnetcore-8.0"
+
+> [!div class="checklist"]
+>
+> * Windows
+> * Linux
+> * macOS
+
+:::moniker-end
+
+:::moniker range="< aspnetcore-8.0"
+
 > [!div class="checklist"]
 >
 > * Windows
@@ -43,6 +55,8 @@ ASP.NET Core gRPC services can be hosted on all operating system that .NET Core 
 > * macOS&dagger;
 
 &dagger;[macOS doesn't support hosting ASP.NET Core apps with HTTPS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).
+
+:::moniker-end
 
 ### Supported ASP.NET Core servers
 
@@ -67,11 +81,7 @@ For information about configuring ASP.NET Core servers to run gRPC, see <xref:gr
 > * [Azure Container Apps](https://azure.microsoft.com/services/container-apps/)
 > * [Azure App Service](https://azure.microsoft.com/services/app-service/)&dagger;
 
-&dagger;Azure App Service doesn't support hosting gRPC over HTTP/2 everywhere. Support is currently experimental. gRPC-Web is a compatible alternative that's available everywhere.
-
-See [How-to deploy a .NET 6 gRPC app on App Service](https://github.com/Azure/app-service-linux-docs/blob/master/HowTo/gRPC/use_gRPC_with_dotnet.md) for Azure App Service deployment information. This page discusses deploying gRPC that uses HTTP/2 to App Service which is experimental and not available in all Azure data centers.
-
-Work is in-progress to improve support for gRPC with HTTP/2 in Azure App Service. For more information, see [this GitHub issue](https://github.com/dotnet/AspNetCore/issues/9020).
+&dagger;gRPC requires a Linux-based environment on Azure App Service. See [How-to deploy a .NET 6 gRPC app on App Service](https://github.com/Azure/app-service-linux-docs/blob/master/HowTo/gRPC/use_gRPC_with_dotnet.md) for Azure App Service deployment information.
 
 ## .NET gRPC client requirements
 

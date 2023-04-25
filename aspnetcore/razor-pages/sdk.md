@@ -1,6 +1,6 @@
 ---
 title: ASP.NET Core Razor SDK
-author: Rick-Anderson
+author: tdykstra
 description: Learn how Razor Pages in ASP.NET Core makes coding page-focused scenarios easier and more productive than using MVC.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
@@ -39,6 +39,10 @@ The following properties control the Razor's SDK behavior as part of a project b
 
 * `RazorCompileOnBuild`: When `true`, compiles and emits the Razor assembly as part of building the project. Defaults to `true`.
 * `RazorCompileOnPublish`: When `true`, compiles and emits the Razor assembly as part of publishing the project. Defaults to `true`.
+* `UseRazorSourceGenerator`: Defaults to `true`. When `true`:
+  * Compiles using source generation.
+  * Doesn't create `<app_name>.Views.dll`. Views are included in `<app_name>.dll`.
+  * Supports [.NET Hot Reload](xref:test/hot-reload).
 
 The properties and items in the following table are used to configure inputs and output to the Razor SDK.
 
@@ -133,7 +137,7 @@ The properties and items in the following table are used to configure inputs and
 | `RazorGenerate` | Item elements (`.cshtml` files) that are inputs to code generation. |
 | `RazorComponent` | Item elements (`.razor` files) that are inputs to Razor component code generation. |
 | `RazorCompile` | Item elements (`.cs` files) that are inputs to Razor compilation targets. Use this `ItemGroup` to specify additional files to be compiled into the Razor assembly. |
-| `RazorTargetAssemblyAttribute` | Item elements used to code generate attributes for the Razor assembly. For example:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
+| `RazorTargetAssemblyAttribute` | Item elements used to code generate attributes for the Razor assembly. For example:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://learn.microsoft.com/">` |
 | `RazorEmbeddedResource` | Item elements added as embedded resources to the generated Razor assembly. |
 
 | Property | Description |
@@ -249,7 +253,7 @@ The properties and items in the following table are used to configure inputs and
 | `RazorGenerate` | Item elements (`.cshtml` files) that are inputs to code generation. |
 | `RazorComponent` | Item elements (`.razor` files) that are inputs to Razor component code generation. |
 | `RazorCompile` | Item elements (`.cs` files) that are inputs to Razor compilation targets. Use this `ItemGroup` to specify additional files to be compiled into the Razor assembly. |
-| `RazorTargetAssemblyAttribute` | Item elements used to code generate attributes for the Razor assembly. For example:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
+| `RazorTargetAssemblyAttribute` | Item elements used to code generate attributes for the Razor assembly. For example:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://learn.microsoft.com/">` |
 | `RazorEmbeddedResource` | Item elements added as embedded resources to the generated Razor assembly. |
 
 | Property | Description |

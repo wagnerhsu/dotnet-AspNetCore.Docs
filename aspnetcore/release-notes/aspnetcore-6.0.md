@@ -186,7 +186,7 @@ Support for working with query strings is improved. For more information, see <x
 Binding supports multiple option selection with `<input>` elements. For more information, see the following resources:
 
 * <xref:blazor/components/data-binding?view=aspnetcore-6.0#multiple-option-selection-with-input-elements>
-* <xref:blazor/forms-validation?view=aspnetcore-6.0#multiple-option-selection-with-the-inputselect-component>
+* <xref:blazor/forms-and-input-components?view=aspnetcore-6.0#multiple-option-selection-with-the-inputselect-component>
 
 ### Head (`<head>`) content control
 
@@ -490,7 +490,7 @@ The change from `"Microsoft": "Warning"` to `"Microsoft.AspNetCore": "Warning"` 
 <!-- TODO add and routing -->
 ### Developer exception page Middleware added automatically
 
-In the [develoment environment](xref:fundamentals/environments), the <xref:Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware> is added by default. It's no longer necessary to add the following code to web UI apps:
+In the [development environment](xref:fundamentals/environments), the <xref:Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware> is added by default. It's no longer necessary to add the following code to web UI apps:
 
 ```csharp
 if (app.Environment.IsDevelopment())

@@ -5,10 +5,12 @@ description: Learn how to configure a hosted Blazor WebAssembly app to host mult
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/27/2022
+ms.date: 11/08/2022
 uid: blazor/host-and-deploy/multiple-hosted-webassembly
 ---
 # Multiple hosted ASP.NET Core Blazor WebAssembly apps
+
+[!INCLUDE[](~/includes/not-latest-version.md)]
 
 This article explains how to configure a hosted Blazor WebAssembly app to host multiple Blazor WebAssembly apps.
 
@@ -38,7 +40,7 @@ The preceding configurations are beyond the scope of this demonstration. For mor
 * <xref:security/enforcing-ssl>
 * <xref:blazor/components/prerendering-and-integration?pivots=webassembly>
 
-Use an existing hosted Blazor WebAssembly [solution](xref:blazor/tooling#visual-studio-solution-file-sln) or create a [new hosted Blazor WebAssembly solution](xref:blazor/tooling) from the Blazor WebAssembly project template by passing the `-ho|--hosted` option if using the .NET CLI or selecting the **ASP.NET Core hosted** checkbox in Visual Studio or Visual Studio for Mac when the project is created in the IDE.
+Use an existing hosted Blazor WebAssembly [solution](xref:blazor/tooling#visual-studio-solution-file-sln) or create a [new hosted Blazor WebAssembly solution](xref:blazor/tooling) from the Blazor WebAssembly project template by passing the `-ho|--hosted` option if using the .NET CLI or selecting the **ASP.NET Core Hosted** checkbox in Visual Studio or Visual Studio for Mac when the project is created in the IDE.
 
 Use a folder for the solution named `MultipleBlazorApps` and name the project `MultipleBlazorApps`.
 
@@ -57,7 +59,7 @@ In the client app's project file (`MultipleBlazorApps.Client.csproj`), add a [`<
 > [!NOTE]
 > The demonstration in this section uses web asset path names of `FirstApp` and `SecondApp`, but these specific names are merely for demonstration purposes. Any base path segments that distinguish the client apps are acceptable, such as `App1`/`App2`, `Client1`/`Client2`, `1`/`2`, or any similar naming scheme. These base path segments are used internally to route requests and serve responses and are ***not*** seen in a browser's address bar.
 
-Add a second client app to the solution. Add the project as a standalone Blazor WebAssembly app. To create a standalone Blazor WebAssembly app, don't pass the `-ho|--hosted` option if using the .NET CLI or don't use the **ASP.NET Core hosted** checkbox if using Visual Studio:
+Add a second client app to the solution. Add the project as a standalone Blazor WebAssembly app. To create a standalone Blazor WebAssembly app, don't pass the `-ho|--hosted` option if using the .NET CLI or don't use the **ASP.NET Core Hosted** checkbox if using Visual Studio:
 
 * Name the project `MultipleBlazorApps.SecondClient` and place the app into a folder named `SecondClient`.
 * The solution folder created from the project template contains the following solution file and folders after the `SecondClient` folder is added:
@@ -224,6 +226,26 @@ If you plan to serve pages from the server app, add an `Index` Razor page to the
 
 `Pages/Index.cshtml.cs`:
 
+:::moniker range=">= aspnetcore-6.0"
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace MultipleBlazorApps.Server.Pages;
+
+public class IndexModel : PageModel
+{
+    public void OnGet()
+    {
+    }
+}
+```
+
+:::moniker-end
+
+:::moniker range="< aspnetcore-6.0"
+
 ```csharp
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -238,6 +260,8 @@ namespace MultipleBlazorApps.Server.Pages
     }
 }
 ```
+
+:::moniker-end
 
 > [!NOTE]
 > If the app requires additional Razor Pages assets, such as a layout, styles, scripts, and imports, obtain them from an app created from the Razor Pages project template. For more information, see <xref:razor-pages/index>.
@@ -259,6 +283,8 @@ If you plan to serve MVC views from the server app, add an `Index` view and a `H
 
 `Controllers/HomeController.cs`:
 
+:::moniker range=">= aspnetcore-6.0"
+
 ```csharp
 using Microsoft.AspNetCore.Mvc;
 
@@ -272,6 +298,27 @@ public class HomeController : Controller
     }
 }
 ```
+
+:::moniker-end
+
+:::moniker range="< aspnetcore-6.0"
+
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+namespace MultipleBlazorApps.Server.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
+}
+```
+
+:::moniker-end
 
 > [!NOTE]
 > If the app requires additional MVC assets, such as a layout, styles, scripts, and imports, obtain them from an app created from the MVC project template. For more information, see <xref:tutorials/first-mvc-app/start-mvc>.

@@ -164,7 +164,7 @@ Tokens can be passed to components:
 
 For more information, see <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>.
 
-In the `Pages/_Host.cshtml` file, establish the token after adding it to the `InitialApplicationState` and `TokenProvider` classes:
+In the `Pages/_Host.cshtml` file, establish the token after adding it to the [`InitialApplicationState` and `TokenProvider` classes](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app):
 
 ```csharp
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
@@ -244,7 +244,7 @@ In the `MainLayout` component (`Shared/MainLayout.razor`), add the `LoginDisplay
 ```razor
 <div class="top-row px-4 auth">
     <LoginDisplay />
-    <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    <a href="https://learn.microsoft.com/aspnet/" target="_blank">About</a>
 </div>
 ```
 
@@ -252,9 +252,24 @@ In the `MainLayout` component (`Shared/MainLayout.razor`), add the `LoginDisplay
 
 Because Blazor Server uses Razor Pages Identity pages, the styling of the UI changes when a visitor navigates between Identity pages and components. You have two options to address the incongruous styles:
 
-#### Build Identity components
+#### Custom Identity components
 
-An approach to using components for Identity instead of pages is to build Identity components. Because `SignInManager` and `UserManager` aren't supported in Razor components, use API endpoints in the Blazor Server app to process user account actions.
+ASP.NET Core Identity is designed to work in the context of HTTP request and response communication, which isn't the primary client-server communication model in Blazor apps. ASP.NET Core apps that use ASP.NET Core Identity for user management should use Razor Pages instead of Razor components for Identity-related UI, such as user registration, login, logout, and other user management tasks.
+
+Because <xref:Microsoft.AspNetCore.Identity.SignInManager%601> and <xref:Microsoft.AspNetCore.Identity.UserManager%601> aren't supported in Razor components, we recommend using web API to manage Identity actions from Razor components via a server-side Identity-enabled ASP.NET Core app. For guidance on creating web APIs for Blazor apps, see <xref:blazor/call-web-api>.
+
+An approach to using Razor components for Identity instead of Razor pages is to build your own custom Identity Razor components, but Microsoft doesn't recommend or support the approach. For additional context, explore the following discussions. In the following discussions, code examples in issue comments and code examples cross-linked in non-Microsoft GitHub repositories aren't supported by Microsoft but might be helpful to some developers:
+
+* [Support Custom Login Component when using Identity (dotnet/aspnetcore #13601)](https://github.com/dotnet/aspnetcore/issues/13601)
+* [Reiteration on the `SigninManager<T>` not being supported in Razor Components (dotnet/aspnetcore #34095)](https://github.com/dotnet/aspnetcore/issues/34095)
+* [There is no info on how to actually implement custom login form for server-side blazor (dotnet/AspNetCore.Docs #16813)](https://github.com/dotnet/AspNetCore.Docs/issues/16813)
+
+For additional assistance when seeking to build custom Identity Razor components or searching for third-party Razor components, we recommend the following resources:
+
+* [Stack Overflow (tag: `blazor`)](https://stackoverflow.com/questions/tagged/blazor) (Public support forum)
+* [ASP.NET Core Slack Team](https://join.slack.com/t/aspnetcore/shared_invite/zt-1mv5487zb-EOZxJ1iqb0A0ajowEbxByQ) (Public support chat)
+* [Blazor Gitter](https://gitter.im/aspnet/Blazor) (Public support chat)
+* [Awesome Blazor](https://github.com/AdrienTorris/awesome-blazor) (Links to community-maintained Blazor resources)
 
 #### Use a custom layout with Blazor app styles
 
@@ -306,7 +321,7 @@ In the `Pages/Shared/Layout.cshtml` file, make the following changes:
               throw new InvalidOperationException("The default Identity UI " +
                   "layout requires a partial view '_LoginPartial'.");
           }
-          <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+          <a href="https://learn.microsoft.com/aspnet/" target="_blank">About</a>
       </div>
 
       <div class="content px-4">
@@ -353,7 +368,7 @@ If <xref:Microsoft.AspNetCore.Identity.PasswordOptions> are configured in `Start
 
 ## Disable a page
 
-This sections show how to disable the register page but the approach can be used to disable any page.
+This section shows how to disable the register page but the approach can be used to disable any page.
 
 To disable user registration:
 
@@ -598,7 +613,7 @@ Tokens can be passed to components:
 
 For more information, see <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>.
 
-In the `Pages/_Host.cshtml` file, establish the token after adding it to the `InitialApplicationState` and `TokenProvider` classes:
+In the `Pages/_Host.cshtml` file, establish the token after adding it to the [`InitialApplicationState` and `TokenProvider` classes](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app):
 
 ```csharp
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
@@ -684,7 +699,7 @@ In the `MainLayout` component (`Shared/MainLayout.razor`), add the `LoginDisplay
 ```razor
 <div class="top-row px-4 auth">
     <LoginDisplay />
-    <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    <a href="https://learn.microsoft.com/aspnet/" target="_blank">About</a>
 </div>
 ```
 
@@ -746,7 +761,7 @@ In the `Pages/Shared/Layout.cshtml` file, make the following changes:
               throw new InvalidOperationException("The default Identity UI " +
                   "layout requires a partial view '_LoginPartial'.");
           }
-          <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+          <a href="https://learn.microsoft.com/aspnet/" target="_blank">About</a>
       </div>
 
       <div class="content px-4">
@@ -817,7 +832,7 @@ If <xref:Microsoft.AspNetCore.Identity.PasswordOptions> are configured in `Start
 
 ## Disable a page
 
-This sections show how to disable the register page but the approach can be used to disable any page.
+This section shows how to disable the register page but the approach can be used to disable any page.
 
 To disable user registration:
 

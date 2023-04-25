@@ -5,10 +5,12 @@ description: Learn how to build Blazor Hybrid apps with the tutorials listed in 
 monikerRange: '>= aspnetcore-6.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/10/2022
+ms.date: 11/08/2022
 uid: blazor/hybrid/tutorials/index
 ---
 # ASP.NET Core Blazor Hybrid tutorials
+
+[!INCLUDE[](~/includes/not-latest-version.md)]
 
 * <xref:blazor/hybrid/tutorials/maui>
 

@@ -276,14 +276,14 @@ When a routing middleware executes, it sets an `Endpoint` and route values to a 
 * Calling [HttpContext.GetEndpoint](xref:Microsoft.AspNetCore.Http.EndpointHttpContextExtensions.GetEndpoint%2A) gets the endpoint.
 * `HttpRequest.RouteValues` gets the collection of route values.
 
-[Middleware](xref:fundamentals/middleware/index) running after the routing middleware can inspect the endpoint and take action. For example, an authorization middleware can interrogate the endpoint's metadata collection for an authorization policy. After all of the middleware in the request processing pipeline is executed, the selected endpoint's delegate is invoked.
+[Middleware](xref:fundamentals/middleware/index) runs after the routing middleware can inspect the endpoint and take action. For example, an authorization middleware can interrogate the endpoint's metadata collection for an authorization policy. After all of the middleware in the request processing pipeline is executed, the selected endpoint's delegate is invoked.
 
 The routing system in endpoint routing is responsible for all dispatching decisions. Because the middleware applies policies based on the selected endpoint, it's important that:
 
 * Any decision that can affect dispatching or the application of security policies is made inside the routing system.
 
 > [!WARNING]
-> For backwards-compatibility, when a Controller or Razor Pages endpoint delegate is executed, the properties of <xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData%2A?displayProperty=nameWithType> are set to appropriate values based on the request processing performed thus far.
+> For backward-compatibility, when a Controller or Razor Pages endpoint delegate is executed, the properties of <xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData%2A?displayProperty=nameWithType> are set to appropriate values based on the request processing performed thus far.
 >
 > The `RouteContext` type will be marked obsolete in a future release:
 >
@@ -399,7 +399,11 @@ In the following example, a middleware uses the <xref:Microsoft.AspNetCore.Routi
 
 ## Route templates
 
-Tokens within `{}` define route parameters that are bound if the route is matched. More than one route parameter can be defined in a route segment, but route parameters must be separated by a literal value. For example, `{controller=Home}{action=Index}` isn't a valid route, since there's no literal value between `{controller}` and `{action}`. Route parameters must have a name and may have additional attributes specified.
+Tokens within `{}` define route parameters that are bound if the route is matched. More than one route parameter can be defined in a route segment, but route parameters must be separated by a literal value. For example:
+
+   `{controller=Home}{action=Index}` 
+
+isn't a valid route, because there's no literal value between `{controller}` and `{action}`. Route parameters must have a name and may have additional attributes specified.
 
 Literal text other than route parameters (for example, `{id}`) and the path separator `/` must match the text in the URL. Text matching is case-insensitive and based on the decoded representation of the URL's path. To match a literal route parameter delimiter `{` or `}`, escape the delimiter by repeating the character. For example `{{` or `}}`.
 
@@ -478,6 +482,8 @@ Regular expressions provide much more control over their matching behavior.
 <a name="greedy"></a>
 
 Greedy matching, also known as [lazy matching](https://wikipedia.org/wiki/Regular_expression#Lazy_matching), matches the largest possible string. Non-greedy matches the smallest possible string.
+
+[!INCLUDE[](~/includes/routeSlash.md)]
 
 ## Route constraints
 
@@ -855,6 +861,16 @@ When the `[Host]` attribute is applied to both the controller and action method:
 * The attribute on the action is used.
 * The controller attribute is ignored.
 
+:::moniker-end
+:::moniker range=">= aspnetcore-7.0"
+
+## Route groups
+
+[!INCLUDE[](~/includes/route-groups.md)]
+
+:::moniker-end
+:::moniker range=">= aspnetcore-6.0"
+
 ## Performance guidance for routing
 
 When an app has performance problems, routing is often suspected as the problem. The reason routing is suspected is that frameworks like controllers and Razor Pages report the amount of time spent inside the framework in their logging messages. When there's a significant difference between the time reported by controllers and the total time of the request:
@@ -955,6 +971,14 @@ app.MapHealthChecks("/healthz");
 **CONSIDER** writing your own <xref:Microsoft.AspNetCore.Routing.EndpointDataSource>. `EndpointDataSource` is the low-level primitive for declaring and updating a collection of endpoints. `EndpointDataSource` is a powerful API used by controllers and Razor Pages.
 
 The routing tests have a [basic example](https://github.com/dotnet/AspNetCore/blob/main/src/Http/Routing/test/testassets/RoutingSandbox/Framework/FrameworkEndpointDataSource.cs#L17) of a non-updating data source.
+
+:::moniker-end
+:::moniker range=">= aspnetcore-7.0"
+
+**CONSIDER** implementing <xref:Microsoft.AspNetCore.Routing.EndpointDataSource.GetGroupedEndpoints%2A>. This gives complete control over running group conventions and the final metadata on the grouped endpoints. For example, this allows custom `EndpointDataSource` implementations to run [endpoint filters](xref:fundamentals/minimal-apis/min-api-filters) added to groups.
+
+:::moniker-end
+:::moniker range=">= aspnetcore-6.0"
 
 **DO NOT** attempt to register an `EndpointDataSource` by default. Require users to register your framework in <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A>. The philosophy of routing is that nothing is included by default, and that `UseEndpoints` is the place to register endpoints.
 
@@ -1273,14 +1297,14 @@ When a routing middleware executes, it sets an `Endpoint` and route values to a 
 * Calling [HttpContext.GetEndpoint](xref:Microsoft.AspNetCore.Http.EndpointHttpContextExtensions.GetEndpoint%2A) gets the endpoint.
 * `HttpRequest.RouteValues` gets the collection of route values.
 
-[Middleware](xref:fundamentals/middleware/index) running after the routing middleware can inspect the endpoint and take action. For example, an authorization middleware can interrogate the endpoint's metadata collection for an authorization policy. After all of the middleware in the request processing pipeline is executed, the selected endpoint's delegate is invoked.
+[Middleware](xref:fundamentals/middleware/index) runs after the routing middleware can inspect the endpoint and take action. For example, an authorization middleware can interrogate the endpoint's metadata collection for an authorization policy. After all of the middleware in the request processing pipeline is executed, the selected endpoint's delegate is invoked.
 
 The routing system in endpoint routing is responsible for all dispatching decisions. Because the middleware applies policies based on the selected endpoint, it's important that:
 
 * Any decision that can affect dispatching or the application of security policies is made inside the routing system.
 
 > [!WARNING]
-> For backwards-compatibility, when a Controller or Razor Pages endpoint delegate is executed, the properties of [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) are set to appropriate values based on the request processing performed thus far.
+> For backward-compatibility, when a Controller or Razor Pages endpoint delegate is executed, the properties of [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) are set to appropriate values based on the request processing performed thus far.
 >
 > The `RouteContext` type will be marked obsolete in a future release:
 >

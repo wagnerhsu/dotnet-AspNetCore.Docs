@@ -44,7 +44,7 @@ When redirecting requests to a different URL, indicate whether the redirect is p
 
 * The [`302 - Found`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302) status code is used where the redirection is temporary or generally subject to change. The 302 status code indicates to the client not to store the URL and use it in the future.
 
-For more information on status codes, see [RFC 2616: Status Code Definitions](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+For more information on status codes, see [RFC 9110: Status Code Definitions](https://www.rfc-editor.org/rfc/rfc9110#name-status-codes).
 
 A *URL rewrite* is a server-side operation that provides a resource from a different resource address than the client requested. Rewriting a URL doesn't require a round trip to the server. The rewritten URL isn't returned to the client and doesn't appear in the browser's address bar.
 
@@ -82,6 +82,8 @@ The main reasons to use the server-based URL rewriting technologies in IIS, Apac
 Establish URL rewrite and redirect rules by creating an instance of the [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) class with extension methods for each of the rewrite rules. Chain multiple rules ***in the order that they should be processed***. The `RewriteOptions` are passed into the URL Rewriting Middleware as it's added to the request pipeline with <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*>:
 
 [!code-csharp[](url-rewriting/samples/6.x/SampleApp/Program.cs?name=snippet1&highlight=7-24)]
+
+In the preceding code, [`MethodRules`](https://github.com/dotnet/AspNetCore.Docs/blob/main/aspnetcore/fundamentals/url-rewriting/samples/6.x/SampleApp/RewriteRules.cs) is a user defined class. See [`RewriteRules.cs`](#rrr) in this article for more information.
 
 ### Redirect non-www to www
 
@@ -180,7 +182,7 @@ For the fastest response:
 * Use `skipRemainingRules: true` whenever possible because matching rules is computationally expensive and increases app response time. Skip the processing of the remaining rules when a match occurs and no additional rule processing is required.
 
 > [!WARNING]
-> A malicious user can provide expensive to process input to `RegularExpressions` causing a [Denial-of-Service attack](https://www.us-cert.gov/ncas/tips/ST04-015). ASP.NET Core framework APIs that use `RegularExpressions` pass a timeout. For example, the [RedirectRule](https://github.com/dotnet/aspnetcore/blob/v6.0.2/src/Middleware/Rewrite/src/RedirectRule.cs#L15) and [RewriteRule](https://github.com/dotnet/aspnetcore/blob/v6.0.2/src/Middleware/Rewrite/src/RewriteRule.cs#L14) classes both pass in a one second timeout.
+> A malicious user can provide expensive to process input to `RegularExpressions` causing a [Denial-of-Service attack](https://www.cisa.gov/news-events/news/understanding-denial-service-attacks). ASP.NET Core framework APIs that use `RegularExpressions` pass a timeout. For example, the [RedirectRule](https://github.com/dotnet/aspnetcore/blob/v6.0.2/src/Middleware/Rewrite/src/RedirectRule.cs#L15) and [RewriteRule](https://github.com/dotnet/aspnetcore/blob/v6.0.2/src/Middleware/Rewrite/src/RewriteRule.cs#L14) classes both pass in a one second timeout.
 
 ### Apache mod_rewrite
 
@@ -300,6 +302,8 @@ The sample app demonstrates a method that redirects requests for paths that end 
 * The request is redirected to `/xmlfiles/file.xml`
 * The status code is set to `301 - Moved Permanently`. When the browser makes a new request for `/xmlfiles/file.xml`, Static File Middleware serves the file to the client from the *wwwroot/xmlfiles* folder. For a redirect, explicitly set the status code of the response. Otherwise, a *200 - OK* status code is returned, and the redirect doesn't occur on the client.
 
+<a name="rrr"></a>
+
 `RewriteRules.cs`:
 
 [!code-csharp[](url-rewriting/samples/6.x/SampleApp/RewriteRules.cs?name=snippet_RedirectXmlFileRequests&highlight=15-19)]
@@ -383,7 +387,7 @@ When redirecting requests to a different URL, indicate whether the redirect is p
 
 * The *302 - Found* status code is used where the redirection is temporary or generally subject to change. The 302 status code indicates to the client not to store the URL and use it in the future.
 
-For more information on status codes, see [RFC 2616: Status Code Definitions](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+For more information on status codes, see [RFC 9110: Status Code Definitions](https://www.rfc-editor.org/rfc/rfc9110#name-status-codes).
 
 A *URL rewrite* is a server-side operation that provides a resource from a different resource address than the client requested. Rewriting a URL doesn't require a round trip to the server. The rewritten URL isn't returned to the client and doesn't appear in the browser's address bar.
 
@@ -737,7 +741,7 @@ When redirecting requests to a different URL, indicate whether the redirect is p
 
 * The *302 - Found* status code is used where the redirection is temporary or generally subject to change. The 302 status code indicates to the client not to store the URL and use it in the future.
 
-For more information on status codes, see [RFC 2616: Status Code Definitions](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+For more information on status codes, see [RFC 9110: Status Code Definitions](https://www.rfc-editor.org/rfc/rfc9110#name-status-codes).
 
 A *URL rewrite* is a server-side operation that provides a resource from a different resource address than the client requested. Rewriting a URL doesn't require a round trip to the server. The rewritten URL isn't returned to the client and doesn't appear in the browser's address bar.
 

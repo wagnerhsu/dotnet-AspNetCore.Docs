@@ -10,16 +10,9 @@ uid: host-and-deploy/docker/building-net-docker-images
 
 # Docker images for ASP.NET Core
 
-This tutorial shows how to run an ASP.NET Core app in Docker containers.
+This article shows how to run an ASP.NET Core app in Docker containers.
 
-In this tutorial, you:
-> [!div class="checklist"]
-> * Learn about ASP.NET Core Docker images
-> * Download an ASP.NET Core sample app
-> * Run the sample app locally
-> * Run the sample app in Linux containers
-> * Run the sample app in Windows containers
-> * Build and deploy manually
+Windows Home Edition doesn't support Hyper-V, and Hyper-V is needed for Docker.
 
 ## ASP.NET Core Docker images
 
@@ -61,7 +54,13 @@ The sample Dockerfile uses the [Docker multi-stage build feature](https://docs.d
 
 ## Prerequisites
 
-:::moniker range=">= aspnetcore-6.0"
+:::moniker range=">= aspnetcore-7.0"
+
+* [.NET SDK 7.0](https://dotnet.microsoft.com/download)
+
+:::moniker-end
+
+:::moniker range="= aspnetcore-6.0"
 
 * [.NET SDK 6.0](https://dotnet.microsoft.com/download)
 
@@ -345,6 +344,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 * [Working with Visual Studio Docker Tools](./visual-studio-tools-for-docker.md)
 * [Debugging with Visual Studio Code](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers)
 * [GC using Docker and small containers](xref:performance/memory#sc)
+* [System.IO.IOException: The configured user limit (128) on the number of inotify instances has been reached](xref:host-and-deploy/docker/index#d128)
 
 ## Next steps
 

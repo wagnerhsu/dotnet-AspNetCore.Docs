@@ -18,17 +18,17 @@ Cross-site request forgery (also known as XSRF or CSRF) is an attack against web
 
 An example of a CSRF attack:
 
-1. A user signs into `www.good-banking-site.com` using forms authentication. The server authenticates the user and issues a response that includes an authentication cookie. The site is vulnerable to attack because it trusts any request that it receives with a valid authentication cookie.
-1. The user visits a malicious site, `www.bad-crook-site.com`.
+1. A user signs into `www.good-banking-site.example.com` using forms authentication. The server authenticates the user and issues a response that includes an authentication cookie. The site is vulnerable to attack because it trusts any request that it receives with a valid authentication cookie.
+1. The user visits a malicious site, `www.bad-crook-site.example.com`.
 
-   The malicious site, `www.bad-crook-site.com`, contains an HTML form similar to the following example:
+   The malicious site, `www.bad-crook-site.example.com`, contains an HTML form similar to the following example:
 
    :::code language="html" source="anti-request-forgery/samples_snapshot/vulnerable-form.html":::
 
    Notice that the form's `action` posts to the vulnerable site, not to the malicious site. This is the "cross-site" part of CSRF.
 
-1. The user selects the submit button. The browser makes the request and automatically includes the authentication cookie for the requested domain, `www.good-banking-site.com`.
-1. The request runs on the `www.good-banking-site.com` server with the user's authentication context and can perform any action that an authenticated user is allowed to perform.
+1. The user selects the submit button. The browser makes the request and automatically includes the authentication cookie for the requested domain, `www.good-banking-site.example.com`.
+1. The request runs on the `www.good-banking-site.example.com` server with the user's authentication context and can perform any action that an authenticated user is allowed to perform.
 
 In addition to the scenario where the user selects the button to submit the form, the malicious site could:
 
@@ -69,7 +69,9 @@ When a user authenticates using their username and password, they're issued a to
 
 ### Token-based authentication
 
-When a user is authenticated, they're issued a token (not an antiforgery token). The token contains user information in the form of [claims](/dotnet/framework/security/claims-based-identity-model) or a reference token that points the app to user state maintained in the app. When a user attempts to access a resource that requires authentication, the token is sent to the app with an extra authorization header in the form of a Bearer token. This approach makes the app stateless. In each subsequent request, the token is passed in the request for server-side validation. This token isn't *encrypted*; it's *encoded*. On the server, the token is decoded to access its information. To send the token on subsequent requests, store the token in the browser's local storage. Don't be concerned about CSRF vulnerability if the token is stored in the browser's local storage. CSRF is a concern when the token is stored in a cookie. For more information, see the GitHub issue [SPA code sample adds two cookies](https://github.com/dotnet/AspNetCore.Docs/issues/13369).
+When a user is authenticated, they're issued a token (not an antiforgery token). The token contains user information in the form of [claims](/dotnet/framework/security/claims-based-identity-model) or a reference token that points the app to user state maintained in the app. When a user attempts to access a resource that requires authentication, the token is sent to the app with an extra authorization header in the form of a Bearer token. This approach makes the app stateless. In each subsequent request, the token is passed in the request for server-side validation. This token isn't *encrypted*; it's *encoded*. On the server, the token is decoded to access its information. To send the token on subsequent requests, store the token in the browser's local storage. Placing a token in the browser local storage and retrieving it and using it as a bearer token provides protection against CSRF attacks. However, should the app be vulnerable to script injection via XSS or a compromised external javascript file, an attacker could retrieve any value from local storage and send it to themselves. ASP.NET Core encodes all server side output from variables by default, reducing the risk of XSS. If you override this behavior by using [Html.Raw](xref:System.Web.Mvc.HtmlHelper.Raw%2A) or custom code with untrusted input then you may increase the risk of XSS.
+
+Don't be concerned about CSRF vulnerability if the token is stored in the browser's local storage. CSRF is a concern when the token is stored in a cookie. For more information, see the GitHub issue [SPA code sample adds two cookies](https://github.com/dotnet/AspNetCore.Docs/issues/13369).
 
 ### Multiple apps hosted at one domain
 
@@ -78,6 +80,8 @@ Shared hosting environments are vulnerable to session hijacking, login CSRF, and
 Although `example1.contoso.net` and `example2.contoso.net` are different hosts, there's an implicit trust relationship between hosts under the `*.contoso.net` domain. This implicit trust relationship allows potentially untrusted hosts to affect each other's cookies (the same-origin policies that govern AJAX requests don't necessarily apply to HTTP cookies).
 
 Attacks that exploit trusted cookies between apps hosted on the same domain can be prevented by not sharing domains. When each app is hosted on its own domain, there's no implicit cookie trust relationship to exploit.
+
+<a name="anti7"></a>
 
 ## Antiforgery in ASP.NET Core
 
@@ -253,6 +257,8 @@ The following example uses JavaScript to make an AJAX request to obtain the toke
 
 :::code language="javascript" source="anti-request-forgery/samples/6.x/AntiRequestForgerySample/Snippets/Index.js" highlight="1,15":::
 
+<a name="antimin7"></a>
+
 ### Antiforgery with Minimal APIs
 
 `Minimal APIs` do not support the usage of the included filters (`ValidateAntiForgeryToken`, `AutoValidateAntiforgeryToken`, `IgnoreAntiforgeryToken`), however, <xref:Microsoft.AspNetCore.Antiforgery.IAntiforgery> provides the required APIs to validate a request.
@@ -285,17 +291,17 @@ Cross-site request forgery (also known as XSRF or CSRF) is an attack against web
 
 An example of a CSRF attack:
 
-1. A user signs into `www.good-banking-site.com` using forms authentication. The server authenticates the user and issues a response that includes an authentication cookie. The site is vulnerable to attack because it trusts any request that it receives with a valid authentication cookie.
-1. The user visits a malicious site, `www.bad-crook-site.com`.
+1. A user signs into `www.good-banking-site.example.com` using forms authentication. The server authenticates the user and issues a response that includes an authentication cookie. The site is vulnerable to attack because it trusts any request that it receives with a valid authentication cookie.
+1. The user visits a malicious site, `www.bad-crook-site.example.com`.
 
-   The malicious site, `www.bad-crook-site.com`, contains an HTML form similar to the following example:
+   The malicious site, `www.bad-crook-site.example.com`, contains an HTML form similar to the following example:
 
    :::code language="html" source="anti-request-forgery/samples_snapshot/vulnerable-form.html":::
 
    Notice that the form's `action` posts to the vulnerable site, not to the malicious site. This is the "cross-site" part of CSRF.
 
-1. The user selects the submit button. The browser makes the request and automatically includes the authentication cookie for the requested domain, `www.good-banking-site.com`.
-1. The request runs on the `www.good-banking-site.com` server with the user's authentication context and can perform any action that an authenticated user is allowed to perform.
+1. The user selects the submit button. The browser makes the request and automatically includes the authentication cookie for the requested domain, `www.good-banking-site.example.com`.
+1. The request runs on the `www.good-banking-site.example.com` server with the user's authentication context and can perform any action that an authenticated user is allowed to perform.
 
 In addition to the scenario where the user selects the button to submit the form, the malicious site could:
 
@@ -515,7 +521,7 @@ The following example adds a protected endpoint that will write the request toke
 
 The following example uses JavaScript to make an AJAX request to obtain the token and make another request with the appropriate header:
 
-:::code language="csharp" source="anti-request-forgery/samples/6.x/AntiRequestForgerySample/Snippets/Index.js" highlight="1,15":::
+:::code language="javascript" source="anti-request-forgery/samples/6.x/AntiRequestForgerySample/Snippets/Index.js" highlight="1,15":::
 
 ## Windows authentication and antiforgery cookies
 
@@ -537,17 +543,17 @@ Cross-site request forgery (also known as XSRF or CSRF) is an attack against web
 
 An example of a CSRF attack:
 
-1. A user signs into `www.good-banking-site.com` using forms authentication. The server authenticates the user and issues a response that includes an authentication cookie. The site is vulnerable to attack because it trusts any request that it receives with a valid authentication cookie.
-1. The user visits a malicious site, `www.bad-crook-site.com`.
+1. A user signs into `www.good-banking-site.example.com` using forms authentication. The server authenticates the user and issues a response that includes an authentication cookie. The site is vulnerable to attack because it trusts any request that it receives with a valid authentication cookie.
+1. The user visits a malicious site, `www.bad-crook-site.example.com`.
 
-   The malicious site, `www.bad-crook-site.com`, contains an HTML form similar to the following example:
+   The malicious site, `www.bad-crook-site.example.com`, contains an HTML form similar to the following example:
 
    :::code language="html" source="anti-request-forgery/samples_snapshot/vulnerable-form.html":::
 
    Notice that the form's `action` posts to the vulnerable site, not to the malicious site. This is the "cross-site" part of CSRF.
 
-1. The user selects the submit button. The browser makes the request and automatically includes the authentication cookie for the requested domain, `www.good-banking-site.com`.
-1. The request runs on the `www.good-banking-site.com` server with the user's authentication context and can perform any action that an authenticated user is allowed to perform.
+1. The user selects the submit button. The browser makes the request and automatically includes the authentication cookie for the requested domain, `www.good-banking-site.example.com`.
+1. The request runs on the `www.good-banking-site.example.com` server with the user's authentication context and can perform any action that an authenticated user is allowed to perform.
 
 In addition to the scenario where the user selects the button to submit the form, the malicious site could:
 
